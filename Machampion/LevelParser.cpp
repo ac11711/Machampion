@@ -14,16 +14,12 @@ Level* LevelParser::parseLevel(const char* levelFile) {
 
 	//Get parsed path
 	std::vector<std::string> parsedPath = parsePath(levelFile);
-
 	//Create archive name
 	std::string archiveName = parsedPath.front() + getArchiveNameFromParsedPath(parsedPath);
-
 	//Replace level file with compressed file
 	levelFile = parsedPath.back().c_str();
-
 	//Create destination path
 	std::string destPath = parsedPath.front() + std::string(levelFile);
-
 	//Decompress file
 	decompressFile(archiveName, levelFile, destPath);
 
@@ -148,7 +144,6 @@ void LevelParser::parseTilesets(std::string tilesetFile, int firstGid, std::vect
 	//Get image path
 	std::string tilesetImage = std::string(pImageRoot->Attribute("source"));
 
-	std::cout << "****************TILESET FILE PATH: " << assetsPath + mapsPath2 + std::string(pImageRoot->Attribute("source")) << "\n";
 	//Load texture
 	TheTextureManager::Instance()->load((assetsPath + mapsPath2 + std::string(pImageRoot->Attribute("source"))), pTilesetRoot->Attribute("name"), TheGame::Instance()->getRenderer());
 
