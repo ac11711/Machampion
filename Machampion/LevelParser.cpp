@@ -141,6 +141,7 @@ void LevelParser::parseTilesets(std::string tilesetFile, int firstGid, std::vect
 
 	//Set image element
 	tinyxml2::XMLElement* pImageRoot = pTilesetRoot->FirstChildElement();
+
 	//Get image path
 	std::string tilesetImage = std::string(pImageRoot->Attribute("source"));
 
