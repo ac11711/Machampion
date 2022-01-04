@@ -50,7 +50,7 @@ bool MainMenuState::onEnter() {
 	//Declare parser
 	StateParser stateParser;
 	//Parse the state
-	stateParser.parseState("assets/maps/gamestates.xml", s_menuID, &m_gameObjects, &m_textureIDList);
+	stateParser.parseState("assets/maps.bmna/gamestates.xml", s_menuID, &m_gameObjects, &m_textureIDList);
 
 	//Load the cursor
 	TheCursor::Instance()->load("assets/icons.bmna/cursor.png", "cursor", 935, 530, 50, 40, 25);

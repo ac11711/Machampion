@@ -8,27 +8,14 @@ TextureManager* TextureManager::s_pInstance = 0;
 
 //Load the file into a texture
 bool TextureManager::load(std::string filename, std::string id, SDL_Renderer* pRenderer) {
-	std::cout << "\n\n\nOriginal Path: " << filename << "\n";
 	//Create parsed path
 	std::vector<std::string> parsedPath = parsePath(filename);
-	std::cout << "PARSED PATH: {\n";
-	for (int i = 0; i < parsedPath.size(); ++i) {
-		std::cout << "\t" << parsedPath[i] << "\n";
-	}
-	std::cout << "}\n";
-
 	//Create archive name
 	std::string archiveName = parsedPath.front() + getArchiveNameFromParsedPath(parsedPath);
-	std::cout << "ARCHIVE NAME: " << archiveName << "\n";
-
-	//Replace filename with new extracted file
+	//Replace filename with compressed file
 	filename = parsedPath.back();
-	std::cout << "FILE NAME: " << filename << "\n";
-
 	//Create destination path
 	std::string destPath = parsedPath.front() + filename;
-	std::cout << "DESTINATION PATH: " << destPath << "\n";
-
 	//Decompress file
 	decompressFile(archiveName, filename, destPath);
 

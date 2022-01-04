@@ -75,7 +75,7 @@ bool PlayState::onEnter() {
 
 	//Create level parser
 	LevelParser levelParser;
-
+	std::cout << "Parsing level\n";
 	//Parse level
 	pLevel = levelParser.parseLevel(TheGame::Instance()->getLevelFiles()[TheGame::Instance()->getCurrentLevel() - 1].c_str());
 

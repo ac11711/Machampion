@@ -23,16 +23,12 @@ bool SoundManager::load(std::string filename, std::string id, sound_type type) {
 	if (type == SOUND_MUSIC) {
 		//Create parsed path
 		std::vector<std::string> parsedPath = parsePath(filename);
-
 		//Create archive name
 		std::string archiveName = parsedPath.front() + getArchiveNameFromParsedPath(parsedPath);
-
 		//Replace filename with new extracted file
 		filename = parsedPath.back();
-
 		//Create destination path
 		std::string destPath = parsedPath.front() + filename;
-
 		//Decompress file
 		decompressFile(archiveName, filename, destPath);
 
@@ -59,16 +55,12 @@ bool SoundManager::load(std::string filename, std::string id, sound_type type) {
 	else if (type == SOUND_SFX) {
 		//Create parsed path
 		std::vector<std::string> parsedPath = parsePath(filename);
-
 		//Create archive name
 		std::string archiveName = parsedPath.front() + getArchiveNameFromParsedPath(parsedPath);
-
 		//Replace filename with new extracted file
 		filename = parsedPath.back();
-
 		//Create destination path
 		std::string destPath = parsedPath.front() + filename;
-
 		//Decompress file
 		decompressFile(archiveName, filename, destPath);
 

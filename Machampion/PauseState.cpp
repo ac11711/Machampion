@@ -59,7 +59,7 @@ bool PauseState::onEnter() {
 	StateParser stateParser;
 
 	//Parse pause state
-	stateParser.parseState("assets/maps/gamestates.xml", s_pauseID, &m_gameObjects, &m_textureIDList);
+	stateParser.parseState("assets/maps.bmna/gamestates.xml", s_pauseID, &m_gameObjects, &m_textureIDList);
 
 	//Set cursor x and y position
 	TheCursor::Instance()->getPosition().m_x = 935;

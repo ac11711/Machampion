@@ -33,7 +33,7 @@ Game::Game() :
 	m_coins(0)
 {
 	//Add levels to levels vector
-	m_levelFiles.push_back("assets/maps/testlevel2.tmx");
+	m_levelFiles.push_back("assets/maps.bmna/testlevel2.tmx");
 
 	//Start at level 1
 	m_currentLevel = 1;
@@ -134,7 +134,7 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	TheGameObjectFactory::Instance()->registerType("Berry", new BerryCreator());
 
 	//Load sound effects
-	TheSoundManager::Instance()->load("assets/sounds.bmna/route420.mp3", "music1", SOUND_MUSIC);
+	TheSoundManager::Instance()->load("assets/sounds.bmna/route420.ogg", "music1", SOUND_MUSIC);
 	TheSoundManager::Instance()->load("assets/sounds.bmna/crack.wav", "death", SOUND_SFX);
 	TheSoundManager::Instance()->load("assets/sounds.bmna/bouncesound.wav", "bounce", SOUND_SFX);
 	TheSoundManager::Instance()->load("assets/sounds.bmna/rockbreak.wav", "break", SOUND_SFX);

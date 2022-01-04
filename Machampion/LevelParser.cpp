@@ -1,6 +1,7 @@
 #include "LevelParser.h"
 #include "TextureManager.h"
 #include "GameObjectFactory.h"
+#include "CompressionHandler.h"
 #include "TileLayer.h"
 #include "ObjectLayer.h"
 #include "Level.h"
@@ -10,8 +11,27 @@
 Level* LevelParser::parseLevel(const char* levelFile) {
 	//Create XML document
 	tinyxml2::XMLDocument levelDocument;
+
+	//Get parsed path
+	std::vector<std::string> parsedPath = parsePath(levelFile);
+
+	//Create archive name
+	std::string archiveName = parsedPath.front() + getArchiveNameFromParsedPath(parsedPath);
+
+	//Replace level file with compressed file
+	levelFile = parsedPath.back().c_str();
+
+	//Create destination path
+	std::string destPath = parsedPath.front() + std::string(levelFile);
+
+	//Decompress file
+	decompressFile(archiveName, levelFile, destPath);
+
 	//Load file in document
-	levelDocument.LoadFile(levelFile);
+	levelDocument.LoadFile(destPath.c_str());
+
+	//Delete extracted file
+	deleteFile(destPath);
 
 	//Create level object
 	Level* pLevel = new Level();
@@ -95,21 +115,30 @@ void LevelParser::parseTextures(tinyxml2::XMLElement* pTextureRoot) {
 void LevelParser::parseTilesets(std::string tilesetFile, int firstGid, std::vector<Tileset>* pTilesets) {
 	//Create assets path
 	std::string assetsPath = "assets/";
-	//Create maps path
-	std::string mapsPath = "maps/";
 	//Create new maps path
 	std::string mapsPath2 = "maps.bmna/";
-	std::cout << "****************TILESET FILE NAME 1: " << tilesetFile << "\n";
 	//Create tileset file path
-	tilesetFile = assetsPath + mapsPath + tilesetFile;
-	std::cout << "****************TILESET FILE NAME 2: " << tilesetFile << "\n";
-	//Convert file string to const char*
-	const char* charTilesetFile = tilesetFile.c_str();
+	tilesetFile = assetsPath + mapsPath2 + tilesetFile;
 
 	//Create XML document
 	tinyxml2::XMLDocument TilesetDoc;
+
+	//Get parsed path
+	std::vector<std::string> parsedPath = parsePath(tilesetFile);
+	//Get archive name
+	std::string archiveName = parsedPath.front() + getArchiveNameFromParsedPath(parsedPath);
+	//Replace tileset file with compressed file
+	tilesetFile = parsedPath.back();
+	//Create destination path
+	std::string destPath = parsedPath.front() + tilesetFile;
+	//Decompress file
+	decompressFile(archiveName, tilesetFile, destPath);
+
 	//Load tileset file to document
-	TilesetDoc.LoadFile(charTilesetFile);
+	TilesetDoc.LoadFile(destPath.c_str());
+
+	//Delete extracted file
+	deleteFile(destPath);
 
 	//Set tileset element
 	tinyxml2::XMLElement* pTilesetRoot = TilesetDoc.RootElement();

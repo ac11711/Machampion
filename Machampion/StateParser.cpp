@@ -1,5 +1,6 @@
 #include "StateParser.h"
 #include "TextureManager.h"
+#include "CompressionHandler.h"
 #include "GameObjectFactory.h"
 #include "Game.h"
 
@@ -7,8 +8,23 @@
 bool StateParser::parseState(const char* stateFile, std::string stateID, std::vector<GameObject*>* pObjects, std::vector<std::string>* pTextureIDs) {
 	//Create XML document
 	tinyxml2::XMLDocument XMLDoc;
+
+	//Create parsed path
+	std::vector<std::string> parsedPath = parsePath(stateFile);
+	//Create archive name
+	std::string archiveName = parsedPath.front() + getArchiveNameFromParsedPath(parsedPath);
+	//Replace state file with compressed file
+	stateFile = parsedPath.back().c_str();
+	//Create destination path
+	std::string destPath = parsedPath.front() + std::string(stateFile);
+	//Decompress file
+	decompressFile(archiveName, stateFile, destPath);
+
 	//Load state file
-	XMLDoc.LoadFile(stateFile);
+	XMLDoc.LoadFile(destPath.c_str());
+
+	//Delete extracted file
+	deleteFile(destPath);
 
 	//Set root element in state file
 	tinyxml2::XMLElement* pRoot = XMLDoc.RootElement();
