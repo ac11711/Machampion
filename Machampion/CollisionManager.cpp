@@ -112,7 +112,7 @@ void CollisionManager::checkPlayerEnemyCollision(Player* pPlayer, const std::vec
 	}
 }
 
-void CollisionManager::checkProjectileObjectCollision(Player* pPlayer, const std::vector<GameObject*>& objects, const std::vector<PlayerProjectile*> playerProjectiles, const std::vector<EnemyProjectile*> enemyProjectiles) {
+void CollisionManager::checkProjectileObjectCollision(Player* pPlayer, const std::vector<GameObject*>& objects, const std::vector<PlayerProjectile*>& playerProjectiles, const std::vector<EnemyProjectile*>& enemyProjectiles) {
 	//Create rectangle hitbox
 	SDL_Rect pRect1 = SDL_Rect();
 	SDL_Rect pRect2 = SDL_Rect();

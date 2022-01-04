@@ -32,7 +32,7 @@ void ObjectLayer::update(Level* pLevel) {
 	//Check collision between player and game objects
 	m_collisionManager.checkPlayerEnemyCollision(pLevel->getPlayer(), (const std::vector<GameObject*>&)m_gameObjects);
 	//Check collision between projectiles and game objects
-	m_collisionManager.checkProjectileObjectCollision(pLevel->getPlayer(), (const std::vector<GameObject*>&)m_gameObjects, TheProjectileHandler::Instance()->getPlayerProjectiles(), TheProjectileHandler::Instance()->getEnemyProjectiles());
+	m_collisionManager.checkProjectileObjectCollision(pLevel->getPlayer(), (const std::vector<GameObject*>&)m_gameObjects, (const std::vector<PlayerProjectile*>&)TheProjectileHandler::Instance()->getPlayerProjectiles(), (const std::vector<EnemyProjectile*>&)TheProjectileHandler::Instance()->getEnemyProjectiles());
 
 	//If game objects vector is not empty
 	if (!m_gameObjects.empty()) {

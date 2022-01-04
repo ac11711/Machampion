@@ -11,5 +11,5 @@ class CollisionManager {
 public:
 
 	void checkPlayerEnemyCollision(Player* pPlayer, const std::vector<GameObject*>& objects);
-	void checkProjectileObjectCollision(Player* pPlayer, const std::vector<GameObject*>& objects, const std::vector<PlayerProjectile*> playerProjectiles, const std::vector<EnemyProjectile*> enemyProjectiles);
+	void checkProjectileObjectCollision(Player* pPlayer, const std::vector<GameObject*>& objects, const std::vector<PlayerProjectile*>& playerProjectiles, const std::vector<EnemyProjectile*>& enemyProjectiles);
 };

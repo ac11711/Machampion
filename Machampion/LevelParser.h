@@ -25,7 +25,7 @@ private:
 	void parseObjectLayer(tinyxml2::XMLElement* pObjectElement, std::vector<Layer*>* pLayers, Level* pLevel);
 	void parseTileLayer(tinyxml2::XMLElement* pTileElement, std::vector<Layer*>* pLayers, const std::vector<Tileset>* pTilesets, std::vector<TileLayer*>* pCollisionLayers, std::vector<TileLayer*>* pFluidLayers, std::vector<TileLayer*>* pHazardLayers);
 
-	std::vector<std::vector<int>> spliceData(std::string strData, int width, int height);
+	std::vector<std::vector<int>> spliceData(const std::string& strData, int width, int height);
 
 	//		---Memeber Variables---
 

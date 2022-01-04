@@ -333,7 +333,7 @@ void LevelParser::parseTileLayer(tinyxml2::XMLElement* pTileElement, std::vector
 }
 
 //Parse string of IDs
-std::vector<std::vector<int>> LevelParser::spliceData(std::string strData, int width, int height) {
+std::vector<std::vector<int>> LevelParser::spliceData(const std::string& strData, int width, int height) {
 	//Declare variables
 	int x;
 	char c;
