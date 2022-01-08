@@ -2,7 +2,6 @@
 #include <iostream>
 #include <Windows.h>
 #include <cstdlib>
-#include <ctime>
 
 const int FPS = 60;
 const int DELAY_TIME = 1000.0f / FPS;
@@ -15,16 +14,14 @@ int main(int argc, char** argv) {
 	std::cout << "Initializing game...\n";
 
 	//If game is initialized
-	if (TheGame::Instance()->init("Machampion", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1920, 960, false)) {
+	if (TheGame::Instance()->init("Machampion", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1920, 1080, false)) {
 
 		//GAME LOOP
 		while (TheGame::Instance()->running()) {
 			//Set frame time
 			frameStart = SDL_GetTicks();
 
-			//Set random seed
-			srand(time(0));
-
+			//Run game
 			TheGame::Instance()->handleEvents();
 			TheGame::Instance()->update();
 			TheGame::Instance()->render();
