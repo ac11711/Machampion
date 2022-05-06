@@ -13,6 +13,41 @@
 //Initialize static ID
 const std::string PlayState::s_playID = "PLAY";
 
+//Entry function
+bool PlayState::onEnter() {
+	//Set 3 player lives
+	TheGame::Instance()->setPlayerLives(3);
+
+	//Create level parser
+	LevelParser levelParser;
+
+	//Parse level
+	pLevel = levelParser.parseLevel(TheGame::Instance()->getLevelFiles()[TheGame::Instance()->getCurrentLevel() - 1].c_str());
+
+	//Load textures
+	TheTextureManager::Instance()->load("assets/icons.bmna/life.png", "lives", TheGame::Instance()->getRenderer());
+
+	//If there is a level
+	if (pLevel != 0) {
+		m_loadingComplete = true;
+	}
+
+	//If music is paused
+	if (Mix_PausedMusic()) {
+		//Resume music
+		Mix_ResumeMusic();
+	}
+	//Music is not paused
+	else {
+		//Play music
+		TheSoundManager::Instance()->playMusic("music1", -1);
+	}
+
+	std::cout << "Entering play state\n";
+
+	return true;
+}
+
 //Render the play state
 void PlayState::render() {
 	//If loading done
@@ -68,45 +103,30 @@ void PlayState::update() {
 	}
 }
 
-//Entry function
-bool PlayState::onEnter() {
-	//Set 3 player lives
-	TheGame::Instance()->setPlayerLives(3);
-
-	//Create level parser
-	LevelParser levelParser;
-
-	//Parse level
-	pLevel = levelParser.parseLevel(TheGame::Instance()->getLevelFiles()[TheGame::Instance()->getCurrentLevel() - 1].c_str());
-
-	//Load textures
-	TheTextureManager::Instance()->load("assets/icons.bmna/life.png", "lives", TheGame::Instance()->getRenderer());
-	
-	//If there is a level
-	if (pLevel != 0) {
-		m_loadingComplete = true;
-	}
-
-	//If music is paused
-	if (Mix_PausedMusic()) {
-		//Resume music
-		Mix_ResumeMusic();
-	}
-	//Music is not paused
-	else {
-		//Play music
-		TheSoundManager::Instance()->playMusic("music1", -1);
-	}
-
-	std::cout << "Entering play state\n";
-
-	return true;
-}
-
 //Exit function
 bool PlayState::onExit() {
 	//Set to exiting
 	m_exiting = true;
+
+	//If loading is done and there are objects
+	if (m_loadingComplete && !m_gameObjects.empty()) {
+		//For each game object
+		for (int i = 0; i < m_gameObjects.size(); i++) {
+			//Clean game object
+			m_gameObjects[i]->clean();
+			//Delete pointer
+			delete m_gameObjects[i];
+		}
+
+		//Clear game objects vector
+		m_gameObjects.clear();
+	}
+
+	//For each texture
+	for (int i = 0; i < m_textureIDList.size(); i++) {
+		//Clear texture
+		TheTextureManager::Instance()->clearFromTextureMap(m_textureIDList[i]);
+	}
 
 	//Reset mouse buttons
 	TheInputHandler::Instance()->reset();

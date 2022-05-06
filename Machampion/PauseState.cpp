@@ -11,6 +11,40 @@
 //Initialize static ID
 const std::string PauseState::s_pauseID = "PAUSE";
 
+//Entry function
+bool PauseState::onEnter() {
+	//Create state parser
+	StateParser stateParser;
+
+	//Parse pause state
+	stateParser.parseState("assets/maps.bmna/gamestates.xml", s_pauseID, &m_gameObjects, &m_textureIDList);
+
+	//Set cursor x and y position
+	TheCursor::Instance()->getPosition().m_x = 935;
+	TheCursor::Instance()->getPosition().m_y = 480;
+
+	//Add callbacks
+	m_callbacks.push_back(0);
+	m_callbacks.push_back(s_pauseToMain);
+	m_callbacks.push_back(s_resumePlay);
+
+	//Set callbacks
+	setCallbacks(m_callbacks);
+
+	//Pause music
+	Mix_PauseMusic();
+
+	//Reset joystick buttons
+	TheInputHandler::Instance()->resetButtons();
+
+	//Loading done
+	m_loadingComplete = true;
+
+	std::cout << "Entering pause state\n";
+
+	return true;
+}
+
 //Render the pause state
 void PauseState::render() {
 	//If loading is done and there are objects
@@ -53,40 +87,6 @@ void PauseState::update() {
 	}
 }
 
-//Entry function
-bool PauseState::onEnter() {
-	//Create state parser
-	StateParser stateParser;
-
-	//Parse pause state
-	stateParser.parseState("assets/maps.bmna/gamestates.xml", s_pauseID, &m_gameObjects, &m_textureIDList);
-
-	//Set cursor x and y position
-	TheCursor::Instance()->getPosition().m_x = 935;
-	TheCursor::Instance()->getPosition().m_y = 480;
-
-	//Add callbacks
-	m_callbacks.push_back(0);
-	m_callbacks.push_back(s_pauseToMain);
-	m_callbacks.push_back(s_resumePlay);
-
-	//Set callbacks
-	setCallbacks(m_callbacks);
-
-	//Pause music
-	Mix_PauseMusic();
-
-	//Reset joystick buttons
-	TheInputHandler::Instance()->resetButtons();
-
-	//Loading done
-	m_loadingComplete = true;
-
-	std::cout << "Entering pause state\n";
-
-	return true;
-}
-
 //Exit function
 bool PauseState::onExit() {
 	//If loading is done and there are are objects
@@ -98,6 +98,7 @@ bool PauseState::onExit() {
 			//Delete pointer
 			delete m_gameObjects[i];
 		}
+
 		//Clear game objects vector
 		m_gameObjects.clear();
 	}

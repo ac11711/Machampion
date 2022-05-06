@@ -12,42 +12,6 @@
 //Initialize static ID
 const std::string GameOverState::s_gameOverID = "GAMEOVER";
 
-//Render the game over state
-void GameOverState::render() {
-	//If loading is done and there are game objects
-	if (m_loadingComplete && !m_gameObjects.empty()) {
-		//For each game object
-		for (int i = 0; i < m_gameObjects.size(); i++) {
-			//Draw game object
-			m_gameObjects[i]->draw();
-		}
-
-		//Draw cursor
-		TheCursor::Instance()->draw();
-	}
-}
-
-//Update the game over state
-void GameOverState::update() {
-	//If loading is done and there are game objects
-	if (m_loadingComplete && !m_gameObjects.empty()) {
-		//If there is a joystick and joysticks have not already been initialized
-		if ((int)SDL_NumJoysticks > 0 && !TheInputHandler::Instance()->joysticksInitialized()) {
-			//Initialize joysticks
-			TheInputHandler::Instance()->initializeJoysticks();
-		}
-
-		//For each game object
-		for (int i = 0; i < m_gameObjects.size(); i++) {
-			//Update game object
-			m_gameObjects[i]->update();
-		}
-
-		//Update cursor
-		TheCursor::Instance()->update();
-	}
-}
-
 //Entry function
 bool::GameOverState::onEnter() {
 	//Create state parser
@@ -85,15 +49,54 @@ bool::GameOverState::onEnter() {
 	return true;
 }
 
+//Render the game over state
+void GameOverState::render() {
+	//If loading is done and there are game objects
+	if (m_loadingComplete && !m_gameObjects.empty()) {
+		//For each game object
+		for (int i = 0; i < m_gameObjects.size(); i++) {
+			//Draw game object
+			m_gameObjects[i]->draw();
+		}
+
+		//Draw cursor
+		TheCursor::Instance()->draw();
+	}
+}
+
+//Update the game over state
+void GameOverState::update() {
+	//If loading is done and there are game objects
+	if (m_loadingComplete && !m_gameObjects.empty()) {
+		//If there is a joystick and joysticks have not already been initialized
+		if ((int)SDL_NumJoysticks > 0 && !TheInputHandler::Instance()->joysticksInitialized()) {
+			//Initialize joysticks
+			TheInputHandler::Instance()->initializeJoysticks();
+		}
+
+		//For each game object
+		for (int i = 0; i < m_gameObjects.size(); i++) {
+			//Update game object
+			m_gameObjects[i]->update();
+		}
+
+		//Update cursor
+		TheCursor::Instance()->update();
+	}
+}
+
 //Exit function
 bool::GameOverState::onExit() {
-	//If loading is done and there are gameObjects
+	//Exiting state
+	m_exiting = true;
+
+	//If loading is done and there are objects
 	if (m_loadingComplete && !m_gameObjects.empty()) {
 		//For each game object
 		for (int i = 0; i < m_gameObjects.size(); i++) {
 			//Clean game object
 			m_gameObjects[i]->clean();
-			//Delete game object pointer
+			//Delete pointer
 			delete m_gameObjects[i];
 		}
 
@@ -103,7 +106,7 @@ bool::GameOverState::onExit() {
 
 	//For each texture
 	for (int i = 0; i < m_textureIDList.size(); i++) {
-		//Clear texture from textures vector
+		//Clear texture
 		TheTextureManager::Instance()->clearFromTextureMap(m_textureIDList[i]);
 	}
 

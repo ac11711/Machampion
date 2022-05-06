@@ -26,6 +26,8 @@ public:
 	bool load(std::string filename, std::string id, sound_type type);
 	void playMusic(std::string id, int loop);
 	void playSound(std::string id, int loop);
+	void deleteMusic(std::string filename);
+	void clearSoundMap();
 
 private:
 

@@ -96,3 +96,27 @@ void SoundManager::playMusic(std::string id, int loop) {
 void SoundManager::playSound(std::string id, int loop) {
 	Mix_PlayChannel(-1, m_sfxs[id], loop);
 }
+
+//Delete music file
+void SoundManager::deleteMusic(std::string filename) {
+	deleteFile(filename);
+}
+
+//Delete music and sound
+void SoundManager::clearSoundMap() {
+	//For each music
+	for (const auto& i : m_music) {
+		//Free music
+		Mix_FreeMusic(i.second);
+	}
+
+	//For each sound fx
+	for (const auto& i : m_sfxs) {
+		//Free sfx
+		Mix_FreeChunk(i.second);
+	}
+
+	//Clear maps
+	m_music.clear();
+	m_sfxs.clear();
+}

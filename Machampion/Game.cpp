@@ -190,10 +190,15 @@ void Game::clean() {
 
 	//Clear texture map
 	TheTextureManager::Instance()->clearTextureMap();
+	//Clean sound manager
+	TheSoundManager::Instance()->clearSoundMap();
 	//Clear texture map
 	TheTextManager::Instance()->clearTextureMap();
 	//Clean input handler
 	TheInputHandler::Instance()->clean();
+
+	//Delete music
+	TheSoundManager::Instance()->deleteMusic("assets/route420.ogg");
 
 	//Clean game state machine
 	m_pGameStateMachine->clean();
