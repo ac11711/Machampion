@@ -102,7 +102,7 @@ void SoundManager::deleteMusic(std::string filename) {
 	deleteFile(filename);
 }
 
-//Delete music and sound
+//Clear the sound maps
 void SoundManager::clearSoundMap() {
 	//For each music
 	for (const auto& i : m_music) {

@@ -190,7 +190,7 @@ void Game::clean() {
 
 	//Clear texture map
 	TheTextureManager::Instance()->clearTextureMap();
-	//Clean sound manager
+	//Clear sound map
 	TheSoundManager::Instance()->clearSoundMap();
 	//Clear texture map
 	TheTextManager::Instance()->clearTextureMap();
