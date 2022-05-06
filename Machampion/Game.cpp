@@ -93,7 +93,7 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 				SDL_SetRenderDrawColor(m_pRenderer, 0, 0, 0, 255);
 
 				//Draw loading screen
-				TheTextureManager::Instance()->draw("loading", 0, 0, 1920, 960, m_pRenderer);
+				TheTextureManager::Instance()->draw("loading", 0, 0, width, height, m_pRenderer);
 
 				//Draw renderer
 				SDL_RenderPresent(m_pRenderer);

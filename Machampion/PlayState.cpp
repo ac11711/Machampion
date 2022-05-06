@@ -41,7 +41,7 @@ void PlayState::update() {
 	//If loading done and not leaving play state
 	if (m_loadingComplete && !m_exiting) {
 		//If there is a joystick and joysticks have not already been initialized
-		if (SDL_NumJoysticks > 0 && !TheInputHandler::Instance()->joysticksInitialized()) {
+		if ((int)SDL_NumJoysticks > 0 && !TheInputHandler::Instance()->joysticksInitialized()) {
 			//Initialize joysticks
 			TheInputHandler::Instance()->initializeJoysticks();
 		}

@@ -1,6 +1,5 @@
 #include "Game.h"
 #include <iostream>
-#include <Windows.h>
 #include <cstdlib>
 
 const int FPS = 60;
@@ -14,7 +13,7 @@ int main(int argc, char** argv) {
 	std::cout << "Initializing game...\n";
 
 	//If game is initialized
-	if (TheGame::Instance()->init("Machampion", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1920, 1080, false)) {
+	if (TheGame::Instance()->init("Machampion", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1920, 960, false)) {
 
 		//GAME LOOP
 		while (TheGame::Instance()->running()) {

@@ -32,7 +32,7 @@ void GameOverState::update() {
 	//If loading is done and there are game objects
 	if (m_loadingComplete && !m_gameObjects.empty()) {
 		//If there is a joystick and joysticks have not already been initialized
-		if (SDL_NumJoysticks > 0 && !TheInputHandler::Instance()->joysticksInitialized()) {
+		if ((int)SDL_NumJoysticks > 0 && !TheInputHandler::Instance()->joysticksInitialized()) {
 			//Initialize joysticks
 			TheInputHandler::Instance()->initializeJoysticks();
 		}
